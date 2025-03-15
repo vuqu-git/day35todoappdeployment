@@ -1,7 +1,7 @@
-package de.neuefische.todo.backend;
+package de.neuefische.backend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.neuefische.todo.backend.todo.Todo;
+import de.neuefische.backend.todo.Todo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,11 +26,11 @@ public class TodoIntegrationTest {
     ObjectMapper objectMapper;
 
     @Test
-    void expectEmptyListOnGet() throws Exception {
+    void expectOneTodoInListOnGet() throws Exception {
         mockMvc.perform(get("http://localhost:8080/api/todo"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
-                        []
+                        [{"id":"1","description":"Test","status":"OPEN"}]
                         """));
     }
 
@@ -125,7 +125,7 @@ public class TodoIntegrationTest {
         mockMvc.perform(get("http://localhost:8080/api/todo"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
-                        []
+                        [{"id":"1","description":"Test","status":"OPEN"}]
                         """));
     }
 
