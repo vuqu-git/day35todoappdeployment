@@ -12,7 +12,6 @@ import AddToDo from "./components/AddTodo.tsx";
 import {StatusType} from "./types/StatusType.ts";
 import EditTodo from "./components/EditTodo.tsx";
 
-
 function App() {
 
     const [todoList, setTodoList] = useState<Todo[]>([]);
