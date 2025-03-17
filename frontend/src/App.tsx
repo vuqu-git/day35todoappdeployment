@@ -34,7 +34,6 @@ function App() {
         }
     , [])
 
-
     // add function to pass on as callback
     const handleAddTodo = (newTodo: {description: string, status: StatusType}) => {
 
