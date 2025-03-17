@@ -1,0 +1,44 @@
+/*############################################################################*/
+/*for the navbar in the header*/
+.navBarContainer {
+    max-width: 1200px;
+    /*margin: 0 auto;*/
+    display: flex; /* Using flexbox for layout */
+    justify-content: space-between; /* Space between title and nav */
+    align-items: center; /* Vertically center items */
+}
+
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Flexbox for horizontal navigation */
+}
+
+nav li {
+
+}
+
+nav a {
+    color: gold;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px; /* Slightly rounded corners */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+/*nav a:hover,*/
+/*nav a[aria-current="page"] {*/
+/*  background-color: #444; !* Darker background on hover/active *!*/
+/*}*/
+
+nav a:hover {
+    background-color: #444; /* Darker background on hover/active */
+}
+
+nav a.active {
+    text-decoration: underline;
+    text-decoration-color: gold;
+}
+/*############################################################################*/

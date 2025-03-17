@@ -1,0 +1,29 @@
+/*############################################################################*/
+/*for the form in the AddCharacter component*/
+
+.myForm {
+    width: 350px;
+    /*margin: 20px auto;*/
+    padding: 20px;
+}
+
+.myForm label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.myForm input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+.myForm button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+/*############################################################################*/
