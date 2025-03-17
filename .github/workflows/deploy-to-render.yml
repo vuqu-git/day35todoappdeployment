@@ -40,7 +40,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '21' # must match the version in the pom.xml
+          java-version: '17' # must match the version in the pom.xml
           distribution: 'temurin'
           cache: 'maven'
 
@@ -50,7 +50,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: app.jar
-          path: backend/target/app.jar # must match the finalName in the pom.xml
+          path: backend/target/backend-0.0.1-SNAPSHOT.jar # must match the finalName in the pom.xml
 
   push-to-docker-hub:
     runs-on: ubuntu-latest
