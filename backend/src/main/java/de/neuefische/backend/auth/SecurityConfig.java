@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // injects the value of the APP.URL property from the application's configuration
+    // injects the value of the APP.URL property from the application's configuration applications.properties
     @Value("${app.url}")
     private String appUrl;
 
@@ -31,8 +31,8 @@ public class SecurityConfig {
                 // This configures authorization rules for incoming HTTP requests.
                 .authorizeHttpRequests(a -> a
                         // This rule requires that requests to the /api/auth/me endpoint be authenticated (i.e., the user must be logged in)
+                                        // This path here is used in AuthController to fetch the GitHub username
                         .requestMatchers("/api/auth/me").authenticated()
-                        .requestMatchers("/api/secured").authenticated()
                         // This rule allows all other requests without authentication.
                         .anyRequest().permitAll()
                 )
