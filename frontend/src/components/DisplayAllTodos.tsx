@@ -9,6 +9,11 @@ interface DisplayAllTodosProps {
 
 // export default function DisplayAllTodos({todoList, handleAdvanceStatus}: {todoList: Todo[], handleAdvanceStatus: (newTodo: Todo) => void}) {
 export default function DisplayAllTodos({todoList, onAdvanceStatus, onDeleteTodo}: DisplayAllTodosProps) {
+
+    // if (todoList) {
+    //     return <p>Login to display Todos</p>
+    // }
+
     return (
         <div style={ {
                 padding: "1em",
