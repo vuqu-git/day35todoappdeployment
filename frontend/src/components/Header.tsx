@@ -5,7 +5,7 @@ export default function Header() {
 
     return(
         <div>
-            <h1>Recap-Project: Front for To-Do-Backend</h1>
+            <h1>Recap-Project: Fullstack Todo App</h1>
             <div className="navBarContainer">
                 <nav>
                     <ul>
