@@ -36,18 +36,18 @@ public class SecurityConfig {
 //                        // This rule allows all other requests without authentication.
 //                        .anyRequest().permitAll()
 
-
                         .requestMatchers("/api/auth/me").permitAll()
                         .anyRequest().authenticated()
                 )
                 // ensures that a session is always created if one doesn't exist. This setting might need to be changed based on the application's needs, like using STATELESS for REST APIs.
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .logout( l -> l.logoutSuccessUrl(appUrl) )
+                                                            // sets the default URL to redirect to after a successful OAuth2 login
+                .oauth2Login(o -> o.defaultSuccessUrl(appUrl))
                 // This configures how authentication exceptions are handled.
                 .exceptionHandling(e -> e
-                        // sets the authentication entry point to return an HTTP 401 Unauthorized status code when an unauthenticated user tries to access a protected resource.
-                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                                                            // sets the default URL to redirect to after a successful OAuth2 login
-                .oauth2Login(o -> o.defaultSuccessUrl(appUrl));
+                // sets the authentication entry point to return an HTTP 401 Unauthorized status code when an unauthenticated user tries to access a protected resource.
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));
         return http.build();
     }
 
