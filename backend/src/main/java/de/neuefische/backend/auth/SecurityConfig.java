@@ -30,11 +30,15 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 // This configures authorization rules for incoming HTTP requests.
                 .authorizeHttpRequests(a -> a
-                        // This rule requires that requests to the /api/auth/me endpoint be authenticated (i.e., the user must be logged in)
-                                        // This path here is used in AuthController to fetch the GitHub username
-                        .requestMatchers("/api/auth/me").authenticated()
-                        // This rule allows all other requests without authentication.
-                        .anyRequest().permitAll()
+//                        // This rule requires that requests to the /api/auth/me endpoint be authenticated (i.e., the user must be logged in)
+//                                        // This path here is used in AuthController to fetch the GitHub username
+//                        .requestMatchers("/api/auth/me").authenticated()
+//                        // This rule allows all other requests without authentication.
+//                        .anyRequest().permitAll()
+
+
+                        .requestMatchers("/api/auth/me").permitAll()
+                        .anyRequest().authenticated()
                 )
                 // ensures that a session is always created if one doesn't exist. This setting might need to be changed based on the application's needs, like using STATELESS for REST APIs.
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
