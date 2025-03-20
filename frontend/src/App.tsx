@@ -164,6 +164,7 @@ function App() {
 
     useEffect( () => {
             loadUser();
+            fetchTodoList()
         }
         , []);
 
@@ -182,7 +183,7 @@ function App() {
 
             <Route path="/login" element={<Login/>}/>
             <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
-                <Route path="/" element={<TodoApp todoList={todoList} fetchTodoList={fetchTodoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>
+                <Route path="/" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>
                 <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />
                 <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />
             </Route>
