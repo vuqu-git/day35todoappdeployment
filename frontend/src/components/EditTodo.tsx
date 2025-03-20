@@ -17,7 +17,7 @@ export default function EditTodo( {todoList, handleUpdateTodo}: EditToDoProps) {
     const navigate = useNavigate();
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!
-    // Don't do this because this causes the useState in line 32 and 33 to be called conditionally
+    // Don't do this here before useState because it causes the useState in line 34 and 35 to be called conditionally
     // issue is handling the case where editingTodo is undefined
     // if (!editingTodo) {
     //     navigate('/');
@@ -33,6 +33,11 @@ export default function EditTodo( {todoList, handleUpdateTodo}: EditToDoProps) {
     // more concise:
     const [description, setDescription] = useState<string>(editingTodo?.description || "");
     const [status, setStatus] = useState<StatusType>(editingTodo?.status || "OPEN");
+
+    if (!editingTodo) {
+        navigate('/');
+        return null
+    }
 
     const handleChangeDesc = (event: ChangeEvent<HTMLInputElement>) => {
         setDescription(event.target.value);
