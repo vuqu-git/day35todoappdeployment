@@ -1,29 +1,30 @@
 import {Todo} from "../types/Todo.ts";
-import Header from "./Header.tsx";
-import DisplayAllTodos from "./DisplayAllTodos.tsx";
+import TodoCard from "./TodoCard.tsx";
 
 type Props = {
     todoList: Todo[];
-    handleAdvanceStatus: (newTodo: Todo) => void;
-    handleDeleteTodo: (targetId: string) => void;
+    onAdvanceStatus: (newTodo: Todo) => void;
+    onDeleteTodo: (targetId: string) => void;
 }
 
-function TodoApp({todoList, handleAdvanceStatus, handleDeleteTodo}: Props) {
-
-
-    function logout() {
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080': window.location.origin;
-        window.open(host + '/logout', '_self');
-    }
+function TodoApp({todoList, onAdvanceStatus, onDeleteTodo}: Props) {
 
     return (
-        <>
-            <button onClick={logout}>Logout</button>
-            <Header />
-            <DisplayAllTodos todoList={todoList} onAdvanceStatus={handleAdvanceStatus} onDeleteTodo={handleDeleteTodo} />
-        </>
+        <div style={ {
+            padding: "1em",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "12px",
+            }
+        }>
+            {
+                todoList.map( (t: Todo) => <TodoCard
+                                                    key={t.id} todoItem={t}
+                                                    onAdvanceStatus={onAdvanceStatus}
+                                                    onDeleteTodo={onDeleteTodo}/>)
+            }
+        </div>
     );
-
 }
 
 export default TodoApp

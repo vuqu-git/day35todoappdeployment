@@ -12,6 +12,8 @@ import EditTodo from "./components/EditTodo.tsx";
 import {Todo} from "./types/Todo.ts";
 import {StatusType} from "./types/StatusType.ts";
 import ProtectedRoutesForLogin from "./components/ProtectedRoutesForLogin.tsx";
+import Navbar from "./components/Navbar.tsx";
+import NotFound from "./components/notFound.tsx";
 
 function App() {
 
@@ -181,10 +183,14 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
             </Route>
 
-            <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
-                <Route path="/" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>
-                <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />
-                <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />
+            {/*<Route path="*" element={<NotFound />} />*/}
+
+            <Route path="/" element={<Navbar />}>
+                <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
+                    <Route path="/" element={<TodoApp todoList={todoList} onAdvanceStatus={handleAdvanceStatus} onDeleteTodo={handleDeleteTodo}/>}/>
+                    <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />
+                    <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />
+                </Route>
             </Route>
 
         </Routes>
