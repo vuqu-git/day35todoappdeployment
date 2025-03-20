@@ -16,11 +16,14 @@ export default function EditTodo( {todoList, handleUpdateTodo}: EditToDoProps) {
 
     const navigate = useNavigate();
 
+    // !!!!!!!!!!!!!!!!!!!!!!!!!
+    // Don't do this because this causes the useState in line 32 and 33 to be called conditionally
     // issue is handling the case where editingTodo is undefined
-    if (!editingTodo) {
-        navigate('/');
-        return null
-    }
+    // if (!editingTodo) {
+    //     navigate('/');
+    //     return null
+    // }
+    // !!!!!!!!!!!!!!!!!!!!!!!!!
 
     // also here (in the start values of useState): handling the issue that editingTodo could be undefined
     // even though I've handled the undefined case above by navigating to the main pag (see above)
