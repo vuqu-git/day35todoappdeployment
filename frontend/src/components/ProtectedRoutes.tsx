@@ -10,5 +10,5 @@ export default function ProtectedRoutes({isAuthenticated, isLoading}: Readonly<P
         return <div>Loading...</div>;
     }
 
-    return isAuthenticated ? <Outlet/> : <Navigate to="/" />
+    return isAuthenticated ? <Outlet/> : <Navigate to="/login" />
 }

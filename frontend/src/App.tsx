@@ -174,19 +174,19 @@ function App() {
 
     return (
         <Routes>
-            <Route path="/" element={<Login/>}/>
-            <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
-                <Route path="/todos" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>
-                <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />
-                <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />
-            </Route>
-
-            {/*<Route path="/login" element={<Login/>}/>*/}
+            {/*<Route path="/" element={<Login/>}/>*/}
             {/*<Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>*/}
-            {/*    <Route path="/" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>*/}
+            {/*    <Route path="/todos" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>*/}
             {/*    <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />*/}
             {/*    <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />*/}
             {/*</Route>*/}
+
+            <Route path="/login" element={<Login/>}/>
+            <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
+                <Route path="/" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>
+                <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />
+                <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />
+            </Route>
 
         </Routes>
     );

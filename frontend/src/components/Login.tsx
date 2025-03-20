@@ -18,7 +18,7 @@ export default function Login() {
 
     return  (
         <div className="login-container">
-            <h1>Please Login to the Todo app</h1>
+            <h1>Please login to the Todo app</h1>
             <button onClick={login}>Login with GitHub</button>
         </div>
     )

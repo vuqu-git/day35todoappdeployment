@@ -43,8 +43,8 @@ public class SecurityConfig {
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .logout( l -> l.logoutSuccessUrl(appUrl) )
                                                             // sets the default URL to redirect to after a successful OAuth2 login
-                .oauth2Login(o -> o.defaultSuccessUrl(appUrl + "/todos"))
-//                .oauth2Login(o -> o.defaultSuccessUrl(appUrl))
+//                .oauth2Login(o -> o.defaultSuccessUrl(appUrl + "/todos"))
+                .oauth2Login(o -> o.defaultSuccessUrl(appUrl))
                 // This configures how authentication exceptions are handled.
                 .exceptionHandling(e -> e
                 // sets the authentication entry point to return an HTTP 401 Unauthorized status code when an unauthenticated user tries to access a protected resource.
