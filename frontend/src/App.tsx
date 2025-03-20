@@ -11,6 +11,7 @@ import AddToDo from "./components/AddTodo.tsx";
 import EditTodo from "./components/EditTodo.tsx";
 import {Todo} from "./types/Todo.ts";
 import {StatusType} from "./types/StatusType.ts";
+import ProtectedRoutesForLogin from "./components/ProtectedRoutesForLogin.tsx";
 
 function App() {
 
@@ -19,7 +20,6 @@ function App() {
     const [isLoading, setIsLoading] = useState<boolean>(true); // New state for loading status
 
     const [todoList, setTodoList] = useState<Todo[]>([]);
-    // const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
     const fetchTodoList = () => {
         axios.get("/api/todo")
@@ -168,10 +168,6 @@ function App() {
         }
         , []);
 
-    // const handleEdit = (editingTodo: Todo) => {
-    //     setEditingTodo(editingTodo);
-    // };
-
     return (
         <Routes>
             {/*<Route path="/" element={<Login/>}/>*/}
@@ -181,7 +177,10 @@ function App() {
             {/*    <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />*/}
             {/*</Route>*/}
 
-            <Route path="/login" element={<Login/>}/>
+            <Route element={<ProtectedRoutesForLogin isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
+                <Route path="/login" element={<Login/>}/>
+            </Route>
+
             <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
                 <Route path="/" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>
                 <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />
@@ -190,7 +189,6 @@ function App() {
 
         </Routes>
     );
-
 }
 
 export default App
