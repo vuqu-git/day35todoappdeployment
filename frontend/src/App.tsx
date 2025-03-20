@@ -16,6 +16,7 @@ function App() {
 
     // state variable to track whether the user is authenticated
     const [isAuthenticated, setIsAuthenticated] = useState(false); // Add authentication state
+    const [isLoading, setIsLoading] = useState<boolean>(true); // New state for loading status
 
     const [todoList, setTodoList] = useState<Todo[]>([]);
     // const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
@@ -26,9 +27,11 @@ function App() {
                 response => {setTodoList(response.data)}
             )
             .catch(
-                error => console.error("Error setting up the request:", error.message)
+                error => console.error("Error fetching todo list:", error.message)
             )
     }
+
+    // ##################################################################################################
 
     // add function to pass on as callback
     const handleAddTodo = (newTodo: {description: string, status: StatusType}) => {
@@ -144,13 +147,19 @@ function App() {
         // setEditingTodo(null);
     }
 
+    // ##################################################################################################
+
     const loadUser = () => {
         axios.get('/api/auth/me')
             .then(response => {
-                    console.log(response.data);
-                    setIsAuthenticated(true);
-                })
-            .catch(e => console.error(e) )
+                console.log("user name: " + response.data);
+                setIsAuthenticated(true);
+                setIsLoading(false);
+            })
+            .catch(e => {
+                console.error("Error authenticating the user:", e.message);
+                setIsLoading(false); // Set loading to false even if there’s an error
+            });
     }
 
     useEffect( () => {
@@ -165,19 +174,19 @@ function App() {
 
     return (
         <Routes>
-            {/*<Route path="/" element={<Login/>}/>*/}
-            {/*<Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} />}>*/}
-            {/*    <Route path="/todos" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>*/}
-            {/*    <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />*/}
-            {/*    <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />*/}
-            {/*</Route>*/}
-
-            <Route path="/login" element={<Login/>}/>
-            <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} />}>
-                <Route path="/" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>
+            <Route path="/" element={<Login/>}/>
+            <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
+                <Route path="/todos" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>
                 <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />
                 <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />
             </Route>
+
+            {/*<Route path="/login" element={<Login/>}/>*/}
+            {/*<Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>*/}
+            {/*    <Route path="/" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>*/}
+            {/*    <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />*/}
+            {/*    <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />*/}
+            {/*</Route>*/}
 
         </Routes>
     );

@@ -1,12 +1,13 @@
-import {Link, Navigate, Outlet} from "react-router";
+import {Navigate, Outlet} from "react-router";
 
 type Props = {
     isAuthenticated: boolean
+    isLoading: boolean
 }
-export default function ProtectedRoutes({isAuthenticated}: Readonly<Props>){
+export default function ProtectedRoutes({isAuthenticated, isLoading}: Readonly<Props>){
 
-    if(!isAuthenticated){
-        return <Link to={"/login"}>Please login</Link>
+    if(isLoading){
+        return <div>Loading...</div>;
     }
 
     return isAuthenticated ? <Outlet/> : <Navigate to="/" />
