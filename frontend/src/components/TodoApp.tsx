@@ -6,15 +6,17 @@ import Header from "./Header.tsx";
 
 
 import DisplayAllTodos from "./DisplayAllTodos.tsx";
+import {useEffect} from "react";
 
 
 type Props = {
     todoList: Todo[];
+    fetchTodoList: () => void;
     handleAdvanceStatus: (newTodo: Todo) => void;
     handleDeleteTodo: (targetId: string) => void;
 }
 
-function TodoApp({todoList, handleAdvanceStatus, handleDeleteTodo}: Props) {
+function TodoApp({todoList, fetchTodoList, handleAdvanceStatus, handleDeleteTodo}: Props) {
 
 
     function logout() {
@@ -22,6 +24,10 @@ function TodoApp({todoList, handleAdvanceStatus, handleDeleteTodo}: Props) {
         window.open(host + '/logout', '_self');
     }
 
+    useEffect( () => {
+            fetchTodoList()
+        }
+        , []);
 
     return (
         <>

@@ -38,7 +38,7 @@ return (
                 <div className="content">
                     <h6 className="category">{todoItem.status}</h6>
                     {/*<h4 className="title"><a href="#">To do {todoItem.id}</a></h4>*/}
-                    {/*<p className="title"><a href="#">To do: {todoItem.id}</a></p>*/}
+                    <p className="title">id: {todoItem.id}</p>
                     <p className="description">{todoItem.description}</p>
                     {   todoItem.status !== "DONE"
                             ? <button onClick={handleAdvanceStatus}>advance</button>

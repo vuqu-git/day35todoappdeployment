@@ -2,6 +2,7 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import "./AddTodo.css"
 import {useNavigate} from "react-router";
 import {StatusType} from "../types/StatusType.ts";
+import Header from "./Header.tsx";
 
 
 export default function AddToDo({onAddTodo}: {onAddTodo: (newTodo: {description: string, status: StatusType}) => void}) {
@@ -27,6 +28,8 @@ export default function AddToDo({onAddTodo}: {onAddTodo: (newTodo: {description:
 
 
     return (
+        <>
+            <Header />
             <form className="myForm" onSubmit={onSaveTodo}>
                 <label>
                     Description:
@@ -43,5 +46,6 @@ export default function AddToDo({onAddTodo}: {onAddTodo: (newTodo: {description:
 
                 <button type="submit">Save</button>
             </form>
+        </>
     )
 }

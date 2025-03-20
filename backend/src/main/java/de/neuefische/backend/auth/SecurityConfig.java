@@ -41,7 +41,7 @@ public class SecurityConfig {
                 )
                 // ensures that a session is always created if one doesn't exist. This setting might need to be changed based on the application's needs, like using STATELESS for REST APIs.
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .logout( l -> l.logoutSuccessUrl(appUrl) )
+                .logout( l -> l.logoutSuccessUrl(appUrl + "/login") )
                                                             // sets the default URL to redirect to after a successful OAuth2 login
 //                .oauth2Login(o -> o.defaultSuccessUrl(appUrl + "/todos"))
                 .oauth2Login(o -> o.defaultSuccessUrl(appUrl))
