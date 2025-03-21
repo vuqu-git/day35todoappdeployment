@@ -37,6 +37,7 @@ public class SecurityConfig {
 //                        .anyRequest().permitAll()
 
                         .requestMatchers("/api/auth/me").permitAll()
+                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 // ensures that a session is always created if one doesn't exist. This setting might need to be changed based on the application's needs, like using STATELESS for REST APIs.
