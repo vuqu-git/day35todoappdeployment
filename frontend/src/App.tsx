@@ -1,21 +1,27 @@
 import {useEffect, useState} from 'react'
-import {Todo} from "./types/Todo.ts";
 
 import './App.css'
-import Header from "./components/Header.tsx";
 import axios from "axios";
-
-import DisplayAllTodos from "./components/DisplayAllTodos.tsx";
 import {Route, Routes} from "react-router";
-import AddToDo from "./components/AddTodo.tsx";
 
-import {StatusType} from "./types/StatusType.ts";
+import Login from "./components/Login.tsx";
+import TodoApp from "./components/TodoApp.tsx";
+import ProtectedRoutes from "./components/ProtectedRoutes.tsx";
+import AddToDo from "./components/AddTodo.tsx";
 import EditTodo from "./components/EditTodo.tsx";
+import {Todo} from "./types/Todo.ts";
+import {StatusType} from "./types/StatusType.ts";
+import ProtectedRoutesForLogin from "./components/ProtectedRoutesForLogin.tsx";
+import Navbar from "./components/Navbar.tsx";
+import NotFound from "./components/notFound.tsx";
 
 function App() {
 
+    // state variable to track whether the user is authenticated
+    const [isAuthenticated, setIsAuthenticated] = useState(false); // Add authentication state
+    const [isLoading, setIsLoading] = useState<boolean>(true); // New state for loading status
+
     const [todoList, setTodoList] = useState<Todo[]>([]);
-    // const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
     const fetchTodoList = () => {
         axios.get("/api/todo")
@@ -23,15 +29,11 @@ function App() {
                 response => {setTodoList(response.data)}
             )
             .catch(
-                error => console.error("Error setting up the request:", error.message)
+                error => console.error("Error fetching todo list:", error.message)
             )
     }
 
-    useEffect(
-        () => {
-            fetchTodoList();
-        }
-    , [])
+    // ##################################################################################################
 
     // add function to pass on as callback
     const handleAddTodo = (newTodo: {description: string, status: StatusType}) => {
@@ -147,63 +149,52 @@ function App() {
         // setEditingTodo(null);
     }
 
-    // const handleEdit = (editingTodo: Todo) => {
-    //     setEditingTodo(editingTodo);
-    // };
-
-    function login() {
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080': window.location.origin
-
-        window.open(host + '/oauth2/authorization/github', '_self')
-    }
+    // ##################################################################################################
 
     const loadUser = () => {
         axios.get('/api/auth/me')
             .then(response => {
-                console.log(response.data)
+                console.log("user name: " + response.data);
+                setIsAuthenticated(true);
+                setIsLoading(false);
             })
+            .catch(e => {
+                console.error("Error authenticating the user:", e.message);
+                setIsLoading(false); // Set loading to false even if there’s an error
+            });
     }
 
-    useEffect(() => {
-        loadUser();
-    }, []);
+    useEffect( () => {
+            loadUser();
+            fetchTodoList()
+        }
+        , []);
 
-
-    if (todoList) {
-        return  (
-            <>
-                <button onClick={login}>Login with GitHub</button>
-                <p>Please login to access the Todos!</p>
-            </>
-        )
-    }
-
-  return (
-    <>
-        <Header />
+    return (
         <Routes>
-            <Route path={"/"} element={
-                <DisplayAllTodos
-                    todoList={todoList}
-                    onAdvanceStatus={handleAdvanceStatus}
-                    onDeleteTodo={handleDeleteTodo}
-                />
-            } />
+            {/*<Route path="/" element={<Login/>}/>*/}
+            {/*<Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>*/}
+            {/*    <Route path="/todos" element={<TodoApp todoList={todoList} handleAdvanceStatus={handleAdvanceStatus} handleDeleteTodo={handleDeleteTodo}/>}/>*/}
+            {/*    <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />*/}
+            {/*    <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />*/}
+            {/*</Route>*/}
 
-            <Route path={"/add"} element={
-                <AddToDo onAddTodo={handleAddTodo} />
-            } />
+            <Route element={<ProtectedRoutesForLogin isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
+                <Route path="/login" element={<Login/>}/>
+            </Route>
 
-            <Route path={"/:id"} element={
-                <EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />
-            } />
 
+            <Route path="/" element={<Navbar />}>
+                <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
+                    <Route path="/" element={<TodoApp todoList={todoList} onAdvanceStatus={handleAdvanceStatus} onDeleteTodo={handleDeleteTodo}/>}/>
+                    <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />
+                    <Route path="/edit/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />
+                </Route>
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
         </Routes>
-
-
-    </>
-  )
-
+    );
 }
 
 export default App

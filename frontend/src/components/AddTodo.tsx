@@ -3,7 +3,6 @@ import "./AddTodo.css"
 import {useNavigate} from "react-router";
 import {StatusType} from "../types/StatusType.ts";
 
-
 export default function AddToDo({onAddTodo}: {onAddTodo: (newTodo: {description: string, status: StatusType}) => void}) {
 
     const [description, setDescription] = useState<string>("");
@@ -27,6 +26,7 @@ export default function AddToDo({onAddTodo}: {onAddTodo: (newTodo: {description:
 
 
     return (
+        <>
             <form className="myForm" onSubmit={onSaveTodo}>
                 <label>
                     Description:
@@ -43,5 +43,6 @@ export default function AddToDo({onAddTodo}: {onAddTodo: (newTodo: {description:
 
                 <button type="submit">Save</button>
             </form>
+        </>
     )
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -26,8 +27,9 @@ public class TodoIntegrationTest {
     ObjectMapper objectMapper;
 
     @Test
+    @WithMockUser
     void expectOneTodoInListOnGet() throws Exception {
-        mockMvc.perform(get("http://localhost:8080/api/todo"))
+        mockMvc.perform(get("/api/todo"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         [{"id":"1","description":"Test","status":"OPEN"}]
@@ -36,6 +38,7 @@ public class TodoIntegrationTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void expectSuccessfulPost() throws Exception {
         String actual = mockMvc.perform(
                         post("http://localhost:8080/api/todo")
@@ -62,6 +65,7 @@ public class TodoIntegrationTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void expectSuccessfulPut() throws Exception {
         String saveResult = mockMvc.perform(
                         post("http://localhost:8080/api/todo")
@@ -104,6 +108,7 @@ public class TodoIntegrationTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void expectSuccessfulDelete() throws Exception {
         String saveResult = mockMvc.perform(
                         post("http://localhost:8080/api/todo")
@@ -131,6 +136,7 @@ public class TodoIntegrationTest {
 
     @DirtiesContext
     @Test
+    @WithMockUser
     void expectTodoOnGetById() throws Exception {
         String actual = mockMvc.perform(
                         post("http://localhost:8080/api/todo")
