@@ -183,16 +183,16 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
             </Route>
 
-            {/*<Route path="*" element={<NotFound />} />*/}
 
             <Route path="/" element={<Navbar />}>
                 <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
                     <Route path="/" element={<TodoApp todoList={todoList} onAdvanceStatus={handleAdvanceStatus} onDeleteTodo={handleDeleteTodo}/>}/>
                     <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />
-                    <Route path="/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />
+                    <Route path="/edit/:id" element={<EditTodo todoList={todoList} handleUpdateTodo={handleUpdateTodo} />} />
                 </Route>
             </Route>
 
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 }

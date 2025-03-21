@@ -28,7 +28,7 @@ export default function TodoCard( {todoItem, onAdvanceStatus, onDeleteTodo}: Tod
     const navigate = useNavigate();
     // new for re-routing
     const handleEdit = () => {
-        navigate(`/${todoItem.id}`); // Navigate to /edit/todoId, here string literal is used
+        navigate(`edit/${todoItem.id}`); // Navigate to /edit/todoId, here string literal is used
     };
 
 return (
