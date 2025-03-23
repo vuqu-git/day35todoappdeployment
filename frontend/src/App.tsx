@@ -183,8 +183,9 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
             </Route>
 
-
-            <Route path="/" element={<Navbar />}>
+            // visit root page not being authenticated will lead to redirection to /login: eliminate the brief appearance of the navbar before redirection
+            {/*<Route path="/" element={<Navbar />}>*/}
+            <Route path="/" element={isLoading || !isAuthenticated ? null : <Navbar />}>
                 <Route element={<ProtectedRoutes isAuthenticated={isAuthenticated} isLoading={isLoading}/>}>
                     <Route path="/" element={<TodoApp todoList={todoList} onAdvanceStatus={handleAdvanceStatus} onDeleteTodo={handleDeleteTodo}/>}/>
                     <Route path="/add" element={<AddToDo onAddTodo={handleAddTodo} />} />
