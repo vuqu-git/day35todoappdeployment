@@ -35,10 +35,13 @@ public class SecurityConfig {
 //                        .requestMatchers("/api/auth/me").authenticated()
 //                        // This rule allows all other requests without authentication.
 //                        .anyRequest().permitAll()
-
+//
                         .requestMatchers("/api/auth/me").permitAll()
-                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**", "/assets/**").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/add").permitAll()
+                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**", "/assets/**", "/favicon.ico").permitAll()
                         .anyRequest().authenticated()
+//                        .anyRequest().permitAll()
                 )
                 // ensures that a session is always created if one doesn't exist. This setting might need to be changed based on the application's needs, like using STATELESS for REST APIs.
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
