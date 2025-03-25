@@ -38,8 +38,9 @@ public class SecurityConfig {
 //
                         .requestMatchers("/api/auth/me").permitAll()
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("/add").permitAll()
-                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**", "/assets/**", "/favicon.ico").permitAll()
+//                        .requestMatchers("/add").permitAll() // quickfix mit Florian, aber braucht man doch nicht
+//                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**", "/assets/**", "/favicon.ico").permitAll() // quickfix mit Florian, aber braucht man doch nicht
+                        .requestMatchers("/", "/index.html", "/css/**", "/js/**", "/images/**", "/assets/**").permitAll()
                         .anyRequest().authenticated()
 //                        .anyRequest().permitAll()
                 )

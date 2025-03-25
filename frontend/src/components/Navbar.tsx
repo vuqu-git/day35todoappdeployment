@@ -12,7 +12,7 @@ const Navbar = () => {
         <div>
             <button onClick={logout}>Logout</button>
 
-            <h1>Navbar component: Recap-Project: Fullstack Todo App</h1>
+            <h1>Recap-Project: Fullstack Todo App</h1>
             <div className="navBarContainer">
                 <nav>
                     <ul>
